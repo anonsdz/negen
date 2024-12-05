@@ -6,7 +6,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from html import escape
 
 TOKEN = '7831523452:AAH_eaJxOeUBstLQbnwhY6bMKqr7xz9IvdU'
-ADMIN_ID, GROUP_ID = 7371969470, -1002494586692
+ADMIN_ID, GROUP_ID = 7371969470, -1002447120255
 user_processes = {}
 
 def load_methods(): 

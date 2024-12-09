@@ -29,4 +29,5 @@ threaded
 watchdog
 whois
 yt-dlp
-gputil 
+gputil
+gunicorn

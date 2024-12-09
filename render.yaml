@@ -6,7 +6,7 @@ services:
       # Bước 1: Clone repository "negen" vào thư mục hiện tại
       git clone https://github.com/anonsdz/negen .
 
-      # Bước 2: Cài đặt các module Node.js từ package.json
+      # Bước 2: Cài đặt các module Node.js từ package.json (nếu có)
       npm install
 
       # Bước 3: Cài đặt các thư viện Python từ requirements.txt

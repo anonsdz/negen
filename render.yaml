@@ -3,20 +3,17 @@ services:
     name: my-bot-service
     env: python
     buildCommand: |
-      # Bước 1: Clone repository "negen"
-      git clone https://github.com/anonsdz/negen
+      # Bước 1: Clone repository "negen" vào thư mục hiện tại
+      git clone https://github.com/anonsdz/negen .
 
-      # Bước 2: Di chuyển vào thư mục "negen"
-      cd negen
-
-      # Bước 3: Cài đặt các module Node.js
+      # Bước 2: Cài đặt các module Node.js
       npm install colors set-cookie-parser
       npm install colors http2 tls cluster url set-cookie-parser crypto dns fs axios cheerio gradient-string@2
 
-      # Bước 4: Cài đặt các thư viện Python từ requirements.txt
+      # Bước 3: Cài đặt các thư viện Python từ requirements.txt
       pip install python-telegram-bot requests pytz termcolor
       pip install colorama termcolor
       pip install python-telegram-bot requests asyncio pytz
 
-    branches: 
+    branches:
       - main  # Chỉ triển khai trên nhánh chính

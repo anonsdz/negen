@@ -1,3 +1,9 @@
+python-telegram-bot
+requests
+pytz
+termcolor
+colorama
+asyncio
 python-telegram-bot[job-queue]
 database_connection
 aiohttp

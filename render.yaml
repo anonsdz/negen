@@ -19,7 +19,7 @@ services:
       pip install python-telegram-bot requests asyncio pytz --break-system-packages
 
     startCommand: |
-      # Bước 5: Chạy botv3.py
+      # Bước 5: Chạy botv3.py (bỏ gunicorn, chạy trực tiếp script Python)
       cd negen && python botv3.py
     branches: 
       - main  # Chỉ triển khai trên nhánh chính

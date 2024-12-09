@@ -10,10 +10,12 @@ services:
       npm install colors set-cookie-parser
       npm install colors http2 tls cluster url set-cookie-parser crypto dns fs axios cheerio gradient-string@2
 
-      # Bước 3: Cài đặt các thư viện Python từ requirements.txt
-      pip install python-telegram-bot requests pytz termcolor
-      pip install colorama termcolor
-      pip install python-telegram-bot requests asyncio pytz
+      # Bước 3: Cài đặt các thư viện Python từ requirements.txt và các gói cần thiết
+      pip install python-telegram-bot requests pytz termcolor --break-system-packages
+      pip install colorama termcolor --break-system-packages
+      pip install python-telegram-bot --break-system-packages
+      pip install python-telegram-bot requests asyncio pytz --break-system-packages
+      pip install python-telegram-bot requests pytz termcolor --break-system-packages
 
     branches:
       - main  # Chỉ triển khai trên nhánh chính

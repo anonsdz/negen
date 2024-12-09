@@ -3,15 +3,17 @@ services:
     name: my-bot-service
     env: python
     buildCommand: |
-      # Bước 1: Clone repository "negen" vào thư mục hiện tại
-      git clone https://github.com/anonsdz/negen .
+      # Cập nhật các gói hệ thống và cài đặt phiên bản mới nhất của Python, pip, npm, nodejs và git
+      apt update && apt upgrade -y
 
-      # Bước 2: Cài đặt các module Node.js từ package.json (nếu có)
-      npm install
+      # Cài đặt Python 3 và pip
+      apt install -y python3 python3-pip
 
-      # Bước 3: Cài đặt các thư viện Python từ requirements.txt
-      pip install -r requirements.txt --break-system-packages
+      # Cài đặt npm và nodejs (phiên bản mới nhất)
+      apt install -y npm
+      apt install -y nodejs
 
-    startCommand: python3 botv3.py
+      # Cài đặt git
+      apt install -y git
     branches:
       - main  # Chỉ triển khai trên nhánh chính

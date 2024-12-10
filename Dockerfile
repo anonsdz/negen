@@ -6,13 +6,16 @@ RUN apt-get update -q && apt-get install -y --no-install-recommends \
     sudo \
     python3 \
     python3-pip \
+    python3-dev \
+    build-essential \
+    curl \
     procps \
     htop \
     speedtest-cli \
-    || { echo "apt-get failed"; exit 1; }
+    && rm -rf /var/lib/apt/lists/*
 
-# Cập nhật pip nếu cần thiết
-RUN python3 -m pip install --upgrade pip
+# Cập nhật pip nếu cần thiết (sử dụng curl để đảm bảo tải đúng phiên bản)
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3
 
 # Bước 3: Tạo một user không phải root (optional nhưng khuyến khích)
 RUN useradd -ms /bin/bash nodeuser

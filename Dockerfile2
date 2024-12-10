@@ -10,3 +10,9 @@ RUN apt-get update && apt-get install -y \
     htop \
     speedtest-cli \
     && rm -rf /var/lib/apt/lists/*
+
+# Sử dụng image cực kỳ nhẹ từ Alpine Linux
+FROM alpine:latest
+
+# Chạy lệnh không làm gì cả khi khởi động container
+CMD ["sleep", "infinity"]

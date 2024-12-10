@@ -1,21 +1,18 @@
-# Bước 1: Chọn base image cho Node.js (phiên bản mới nhất)
-FROM node:latest
+# Bước 1: Chọn base image từ Alpine
+FROM node:alpine
 
-# Bước 2: Cài đặt các gói cần thiết bao gồm sudo, Python, pip, htop và speedtest-cli
-RUN apt-get update && apt-get install -y \
+# Bước 2: Cài đặt các gói cần thiết
+RUN apk add --no-cache \
     sudo \
     python3 \
     python3-pip \
     procps \
     htop \
-    speedtest-cli \
-    && rm -rf /var/lib/apt/lists/*
+    speedtest-cli
 
-# Bước 3: Sao chép script start.sh vào container
+# Bước 3: Sao chép và cấp quyền thực thi cho script start.sh
 COPY start.sh /start.sh
-
-# Bước 4: Cấp quyền thực thi cho script
 RUN chmod +x /start.sh
 
-# Bước 5: Chạy script start.sh khi container khởi động
+# Bước 4: Chạy script khi container khởi động
 CMD ["/start.sh"]

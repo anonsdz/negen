@@ -18,19 +18,14 @@ RUN apt-get update -q && apt-get install -y --no-install-recommends \
 RUN useradd -ms /bin/bash nodeuser
 USER nodeuser
 
-# Bước 4: Cài đặt các phụ thuộc Node.js (nếu có)
+# Bước 4: Chỉ định thư mục làm việc
 WORKDIR /app
 
-# Đảm bảo file package.json có trong thư mục build
-COPY package*.json ./
-
-RUN npm install
-
-# Bước 5: Copy ứng dụng của bạn vào container
+# Bước 5: Copy toàn bộ mã nguồn vào container (trừ những gì được ignore trong .dockerignore)
 COPY . .
 
 # Bước 6: Mở port ứng dụng của bạn (ví dụ: 3000 cho Node.js app)
 EXPOSE 3000
 
 # Bước 7: Chạy ứng dụng của bạn
-CMD ["npm", "start"]
+CMD ["node", "index.js"]  # Hoặc lệnh tương ứng để chạy ứng dụng của bạn

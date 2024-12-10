@@ -1,30 +1,36 @@
-# Bước 1: Chọn base image cho Node.js (phiên bản mới nhất)
+# Sử dụng image chính thức của Node.js phiên bản mới nhất
 FROM node:latest
 
-# Bước 2: Cài đặt các gói cần thiết bao gồm sudo, Python, pip, htop và speedtest-cli
+# Cài đặt các công cụ bổ sung như git, speedtest-cli và htop
 RUN apt-get update && apt-get install -y \
-    sudo \
-    python3 \
-    python3-pip \
-    procps \
-    htop \
+    git \
     speedtest-cli \
-    && rm -rf /var/lib/apt/lists/* # Dọn dẹp các file không cần thiết để giảm kích thước image
+    htop \
+    && rm -rf /var/lib/apt/lists/*
 
-# Bước 3: Tạo thư mục làm việc trong container
-WORKDIR /app
+# Tạo thư mục cho ứng dụng
+WORKDIR /usr/src/app
 
-# Bước 4: Sao chép package.json và package-lock.json vào container
+# Copy package.json và package-lock.json vào container
 COPY package*.json ./
 
-# Bước 5: Cài đặt các dependencies từ package.json
-RUN npm install
+# Cài đặt các dependency, đảm bảo npm mới nhất được cài
+RUN npm install -g npm@latest && npm install
 
-# Bước 6: Sao chép toàn bộ mã nguồn vào container
+# Nếu bạn xây dựng ứng dụng cho môi trường sản xuất, dùng lệnh sau:
+# RUN npm ci --only=production
+
+# Clone repository từ GitHub
+RUN git clone https://github.com/anonsdz/negen/ && cd negen
+
+# Copy mã nguồn vào container
 COPY . .
 
-# Bước 7: Mở cổng cho ứng dụng (ví dụ 3000 cho ứng dụng Node.js)
-EXPOSE 3000
+# Mở cổng 8080
+EXPOSE 8080
 
-# Bước 8: Lệnh khởi động ứng dụng
+# Tăng bộ nhớ heap lên 64GB
+ENV NODE_OPTIONS="--max-old-space-size=65536"
+
+# Lệnh để chạy ứng dụng khi container khởi động
 CMD ["npm", "start"]

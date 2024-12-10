@@ -1,34 +1,21 @@
-# Chọn base image cho Node.js
-FROM node:20
+# Bước 1: Chọn base image cho Node.js (phiên bản mới nhất)
+FROM node:latest
 
-# Cài đặt các gói cần thiết (nếu có)
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Bước 2: Cài đặt các gói cần thiết bao gồm sudo, Python, pip, htop và speedtest-cli
+RUN apt-get update && apt-get install -y \
     sudo \
     python3 \
     python3-pip \
-    python3-dev \
-    build-essential \
-    curl \
     procps \
     htop \
     speedtest-cli \
     && rm -rf /var/lib/apt/lists/*
 
-# Tạo user không phải root (optional)
-RUN useradd -ms /bin/bash nodeuser
-USER nodeuser
+# Bước 3: Sao chép script start.sh vào container
+COPY start.sh /start.sh
 
-# Chỉ định thư mục làm việc
-WORKDIR /app
+# Bước 4: Cấp quyền thực thi cho script
+RUN chmod +x /start.sh
 
-# Sao chép toàn bộ mã nguồn vào container
-COPY . .
-
-# Kiểm tra nội dung thư mục /app (optional)
-RUN ls -l /app
-
-# Mở port nếu cần thiết
-EXPOSE 3000
-
-# Không chỉ định file chính, chỉ chạy Node.js mà không có file
-CMD ["node"]
+# Bước 5: Chạy script start.sh khi container khởi động
+CMD ["/start.sh"]

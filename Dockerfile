@@ -26,5 +26,3 @@ WORKDIR /app
 # Bước 7: Đổi sang người dùng không phải root (nếu bạn muốn sử dụng quyền người dùng này)
 USER myuser
 
-# Bước 9: Chạy ứng dụng Node.js
-CMD ["start"]

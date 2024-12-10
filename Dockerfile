@@ -16,8 +16,5 @@ RUN npm install
 # Bước 6: Cài đặt các thư viện Python từ requirements.txt
 RUN pip install -r requirements.txt
 
-# Bước 7: Mở cổng cần thiết (nếu có)
-EXPOSE 8080
-
 # Bước 8: Chạy ứng dụng của bạn (ví dụ Python hoặc Node.js)
 CMD ["python3", "botv3.py"]

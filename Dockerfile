@@ -26,8 +26,5 @@ WORKDIR /app
 # Bước 7: Đổi sang người dùng không phải root (nếu bạn muốn sử dụng quyền người dùng này)
 USER myuser
 
-# Bước 8: Mở cổng 3000 (hoặc cổng mà ứng dụng của bạn sử dụng) nếu cần
-EXPOSE 3000
-
 # Bước 9: Chạy ứng dụng Node.js
-CMD ["npm", "start"]
+CMD ["start"]

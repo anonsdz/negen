@@ -14,10 +14,10 @@ RUN apt-get update -q && apt-get install -y --no-install-recommends \
     speedtest-cli \
     && rm -rf /var/lib/apt/lists/*
 
-# Cập nhật pip nếu cần thiết (sử dụng curl để đảm bảo tải đúng phiên bản)
-RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3
+# Bước 3: Cài đặt pip từ kho gói của Debian/Ubuntu (pip3 đã có sẵn trong hệ thống)
+RUN apt-get install -y python3-pip
 
-# Bước 3: Tạo một user không phải root (optional nhưng khuyến khích)
+# Bước 4: Tạo một user không phải root (optional nhưng khuyến khích)
 RUN useradd -ms /bin/bash nodeuser
 USER nodeuser
 
@@ -26,11 +26,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Bước 4: Copy ứng dụng của bạn vào container
+# Bước 5: Copy ứng dụng của bạn vào container
 COPY . .
 
-# Bước 5: Mở port ứng dụng của bạn (ví dụ: 3000 cho Node.js app)
+# Bước 6: Mở port ứng dụng của bạn (ví dụ: 3000 cho Node.js app)
 EXPOSE 3000
 
-# Bước 6: Chạy ứng dụng của bạn
+# Bước 7: Chạy ứng dụng của bạn
 CMD ["npm", "start"]

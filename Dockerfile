@@ -26,9 +26,6 @@ WORKDIR /app
 # Bước 7: Đổi sang người dùng không phải root (nếu bạn muốn sử dụng quyền người dùng này)
 USER myuser
 
-# Bước 8: Cài đặt các module Node.js từ package.json
-RUN npm install
-
 # Bước 9: Cài đặt các thư viện Python từ requirements.txt
 RUN pip install -r requirements.txt
 

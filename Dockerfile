@@ -17,18 +17,21 @@ RUN useradd -ms /bin/bash myuser
 # Bước 4: Cài đặt quyền sudo cho người dùng
 RUN echo "myuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-# Bước 5: Sao chép file package.json và cài đặt dependencies
+# Bước 5: Cập nhật npm lên phiên bản mới nhất
+RUN npm install -g npm@latest
+
+# Bước 6: Sao chép file package.json và cài đặt dependencies
 COPY package*.json ./
 RUN npm install
 
-# Bước 6: Sao chép mã nguồn vào container
+# Bước 7: Sao chép mã nguồn vào container
 COPY . /app
 
-# Bước 7: Thiết lập thư mục làm việc trong container
+# Bước 8: Thiết lập thư mục làm việc trong container
 WORKDIR /app
 
-# Bước 8: Đổi sang người dùng không phải root (nếu bạn muốn sử dụng quyền người dùng này)
+# Bước 9: Đổi sang người dùng không phải root (nếu bạn muốn sử dụng quyền người dùng này)
 USER myuser
 
-# Bước 9: Chạy ứng dụng (đảm bảo bạn có một entrypoint hoặc lệnh khởi động)
+# Bước 10: Chạy ứng dụng
 CMD ["npm", "start"]

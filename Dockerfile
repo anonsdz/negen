@@ -32,8 +32,3 @@ RUN npm install
 # Bước 9: Cài đặt các thư viện Python từ requirements.txt
 RUN pip install -r requirements.txt
 
-# Bước 10: Dừng bất kỳ tiến trình nào của botv3.py đang chạy (nếu có)
-RUN pkill -f botv3.py || echo "No process with botv3.py found"
-
-# Bước 11: Mở cổng cần thiết nếu cần (optional)
-# EXPOSE 8080

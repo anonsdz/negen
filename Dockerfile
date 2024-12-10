@@ -27,5 +27,5 @@ WORKDIR /app
 USER myuser
 
 # Bước 9: Cài đặt các thư viện Python từ requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt passing --break-system-packages
 

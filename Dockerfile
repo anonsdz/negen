@@ -14,16 +14,16 @@ RUN apt-get update -q && apt-get install -y --no-install-recommends \
     speedtest-cli \
     && rm -rf /var/lib/apt/lists/*
 
-# Bước 3: Cài đặt pip từ kho gói của Debian/Ubuntu (pip3 đã có sẵn trong hệ thống)
-RUN apt-get install -y python3-pip
-
-# Bước 4: Tạo một user không phải root (optional nhưng khuyến khích)
+# Bước 3: Tạo một user không phải root (optional nhưng khuyến khích)
 RUN useradd -ms /bin/bash nodeuser
 USER nodeuser
 
-# Cài đặt các phụ thuộc Node.js (nếu có)
+# Bước 4: Cài đặt các phụ thuộc Node.js (nếu có)
 WORKDIR /app
+
+# Đảm bảo file package.json có trong thư mục build
 COPY package*.json ./
+
 RUN npm install
 
 # Bước 5: Copy ứng dụng của bạn vào container

@@ -11,11 +11,5 @@ RUN apk update && apk add --no-cache \
     htop \
     speedtest-cli
 
-# Bước 3: Sao chép script start.sh vào container
-COPY start.sh /start.sh
-
-# Bước 4: Cấp quyền thực thi cho script
-RUN chmod +x /start.sh
-
-# Bước 5: Chạy script start.sh khi container khởi động
-CMD ["/start.sh"]
+# Bước 3: Chạy một shell (bash hoặc sh) khi container khởi động
+CMD ["/bin/sh"]

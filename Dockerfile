@@ -1,31 +1,17 @@
-# Sử dụng một image chính thức của Ubuntu làm base image
-FROM ubuntu:20.04
+# Chọn image Python chính thức làm nền tảng
+FROM python:3.9-slim
 
-# Cập nhật danh sách các package và cài đặt các công cụ cần thiết
-RUN apt-get update && apt-get install -y \
-    curl \
-    git \
-    nano \
-    htop \
-    ca-certificates \
-    lsb-release \
-    wget \
-    unzip \
-    sudo \
-    software-properties-common \
-    build-essential \
-    python3 \
-    python3-pip \
-    nodejs \
-    npm \
-    speedtest-cli \
-  && rm -rf /var/lib/apt/lists/*
-
-# Kiểm tra phiên bản của các công cụ cài đặt
-RUN python3 --version && pip3 --version && node --version && npm --version && git --version && speedtest-cli --version
-
-# Đặt working directory
+# Thiết lập thư mục làm việc
 WORKDIR /app
 
-# Thêm một command mặc định để chạy khi container chạy
-CMD [ "bash" ]
+# Sao chép requirements.txt vào container
+COPY requirements.txt .
+
+# Cài đặt các thư viện phụ thuộc từ requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Sao chép mã nguồn vào container
+COPY . .
+
+# Cấu hình lệnh để chạy bot
+CMD ["python", "bot.py"]

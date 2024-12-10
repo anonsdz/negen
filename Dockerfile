@@ -1,17 +1,11 @@
-# Chọn image Python chính thức làm nền tảng
-FROM python:3.9-slim
+# Bước 1: Chọn base image cho Node.js (phiên bản mới nhất)
+FROM node:latest
 
-# Thiết lập thư mục làm việc
-WORKDIR /app
-
-# Sao chép requirements.txt vào container
-COPY requirements.txt .
-
-# Cài đặt các thư viện phụ thuộc từ requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Sao chép mã nguồn vào container
-COPY . .
-
-# Cấu hình lệnh để chạy bot
-CMD ["python", "bot.py"]
+# Bước 2: Cài đặt các gói cần thiết bao gồm sudo, Python, pip, htop và speedtest-cli
+RUN apt-get update && apt-get install -y \
+    sudo \
+    python3 \
+    python3-pip \
+    procps \
+    htop \
+    speedtest-cli \

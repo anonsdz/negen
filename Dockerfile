@@ -20,18 +20,21 @@ RUN echo "myuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # Bước 5: Cập nhật npm lên phiên bản mới nhất
 RUN npm install -g npm@latest
 
-# Bước 6: Sao chép file package.json và cài đặt dependencies
-COPY package*.json ./
-RUN npm install
+# Bước 6: Xóa cache npm trước khi cài đặt
+RUN npm cache clean --force
 
-# Bước 7: Sao chép mã nguồn vào container
+# Bước 7: Sao chép file package.json và cài đặt dependencies
+COPY package*.json ./
+RUN npm ci
+
+# Bước 8: Sao chép mã nguồn vào container
 COPY . /app
 
-# Bước 8: Thiết lập thư mục làm việc trong container
+# Bước 9: Thiết lập thư mục làm việc trong container
 WORKDIR /app
 
-# Bước 9: Đổi sang người dùng không phải root (nếu bạn muốn sử dụng quyền người dùng này)
+# Bước 10: Đổi sang người dùng không phải root (nếu bạn muốn sử dụng quyền người dùng này)
 USER myuser
 
-# Bước 10: Chạy ứng dụng
+# Bước 11: Chạy ứng dụng
 CMD ["npm", "start"]

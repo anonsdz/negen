@@ -1,19 +1,13 @@
 services:
   - type: web
-    name: my-node-app  # Tên dịch vụ của bạn
-    env: node  # Môi trường Node.js
-    buildCommand: "npm install"  # Lệnh để cài đặt dependencies
-    startCommand: "npm start"  # Lệnh để bắt đầu ứng dụng
-    plan: pro-ultra  # Gói sử dụng tài nguyên mạnh mẽ
-    branch: main  # Nhánh Git bạn muốn triển khai
-    repo: https://github.com/username/repository-name  # Đường dẫn đến repository
-    regions:
-      - oregon  # Chọn vùng triển khai
+    name: my-vm-service
+    env: docker
+    plan: performance
+    dockerfilePath: ./Dockerfile
+    branch: main
     envVars:
-      - key: NODE_ENV
-        value: production  # Thiết lập NODE_ENV là production
-    instances: 2  # Số lượng instance bạn cần
-    performance: true  # Sử dụng build với hiệu suất cao
-    autoDeploy: true  # Kích hoạt tự động triển khai khi có thay đổi trong repo
-    logRetentionDays: 30  # Duy trì log trong 30 ngày
-    healthCheckPath: /health  # Kiểm tra sức khỏe ứng dụng
+      - key: MY_ENV_VAR
+        value: "some_value"
+    autoscale:
+      minInstances: 1
+      maxInstances: 5

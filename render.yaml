@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: my-node-app  # Tên dịch vụ
+    env: node  # Môi trường Node.js
+    buildCommand: "npm install"  # Lệnh cài đặt dependencies
+    startCommand: "npm start"  # Lệnh để bắt đầu ứng dụng
+    plan: starter  # Bạn có thể chọn "starter", "basic", "pro" hoặc tùy chọn khác dựa trên yêu cầu
+    branch: main  # Nhánh Git để triển khai
+    repo: https://github.com/username/repository-name  # Đường dẫn đến repository của bạn
+    regions:
+      - oregon  # Hoặc bạn có thể chọn vùng khác như "virginia", "frankfurt" tùy vào vị trí của bạn
+    envVars:
+      - key: NODE_ENV
+        value: production  # Thiết lập NODE_ENV là production
+    instances: 1  # Cấu hình số lượng instance
+    healthCheckPath: /health  # Đường dẫn endpoint kiểm tra sức khỏe ứng dụng (nếu có)
+    autoDeploy: true  # Kích hoạt tự động triển khai khi có thay đổi trong repo Git
+    logRetentionDays: 30  # Duy trì log trong 30 ngày
+    performance: true  # Kích hoạt build với hiệu suất cao (nếu bạn cần tài nguyên mạnh hơn)
+    access:
+      roles:
+        - admin  # Quyền truy cập với vai trò admin trong Organization
+    customDomains:
+      - www.myapp.com  # Nếu bạn sử dụng domain tùy chỉnh, cấu hình domain tại đây
+    secrets:
+      - key: DATABASE_URL  # Cấu hình biến môi trường hoặc bí mật (Secrets)
+        value: your-database-url-here
+    buildTriggers:
+      - type: git
+        repoUrl: https://github.com/username/repository-name
+        branch: main
+    network:
+      - name: my-vpc-network  # Nếu bạn sử dụng mạng riêng ảo (VPC)

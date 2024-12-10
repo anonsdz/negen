@@ -1,18 +1,21 @@
-# Bước 1: Chọn base image từ Alpine
-FROM node:alpine
+# Bước 1: Sử dụng image từ Alpine Linux
+FROM alpine:latest
 
 # Bước 2: Cài đặt các gói cần thiết
-RUN apk add --no-cache \
+RUN apk update && apk add --no-cache \
     sudo \
     python3 \
-    python3-pip \
+    python3-dev \
+    py3-pip \
     procps \
     htop \
     speedtest-cli
 
-# Bước 3: Sao chép và cấp quyền thực thi cho script start.sh
+# Bước 3: Sao chép script start.sh vào container
 COPY start.sh /start.sh
+
+# Bước 4: Cấp quyền thực thi cho script
 RUN chmod +x /start.sh
 
-# Bước 4: Chạy script khi container khởi động
+# Bước 5: Chạy script start.sh khi container khởi động
 CMD ["/start.sh"]

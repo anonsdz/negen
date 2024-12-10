@@ -2,35 +2,18 @@ services:
   - type: web
     name: my-node-app  # Tên dịch vụ của bạn
     env: node  # Môi trường Node.js
-    buildCommand: "npm install"  # Lệnh cài đặt dependencies
+    buildCommand: "npm install"  # Lệnh để cài đặt dependencies
     startCommand: "npm start"  # Lệnh để bắt đầu ứng dụng
-    plan: pro-ultra  # Gói Pro Ultra với hiệu suất cao
+    plan: pro-ultra  # Gói sử dụng tài nguyên mạnh mẽ
     branch: main  # Nhánh Git bạn muốn triển khai
-    repo: https://github.com/username/repository-name  # Đường dẫn đến repository của bạn
+    repo: https://github.com/username/repository-name  # Đường dẫn đến repository
     regions:
-      - oregon  # Bạn có thể chọn vùng khác nếu cần (ví dụ: virginia, frankfurt)
+      - oregon  # Chọn vùng triển khai
     envVars:
       - key: NODE_ENV
-        value: production  # Cấu hình biến môi trường cho production
-    instances: 2  # Bạn có thể chạy nhiều instance nếu cần
-    performance: true  # Kích hoạt Performance Builds (16 CPU, 64GB RAM)
-    autoDeploy: true  # Tự động triển khai khi có thay đổi trong repo
-    logRetentionDays: 30  # Lưu trữ log trong 30 ngày
-    healthCheckPath: /health  # Đường dẫn endpoint kiểm tra sức khỏe
-    access:
-      roles:
-        - admin  # Quyền truy cập cho các thành viên của tổ chức
-    customDomains:
-      - www.myapp.com  # Nếu bạn sử dụng domain tùy chỉnh
-    secrets:
-      - key: DATABASE_URL  # Cấu hình biến môi trường hoặc bí mật
-        value: your-database-url-here
-    buildTriggers:
-      - type: git
-        repoUrl: https://github.com/username/repository-name
-        branch: main
-    network:
-      - name: my-vpc-network  # Sử dụng VPC nếu cần
-    healthCheck:
-      intervalSeconds: 30  # Kiểm tra sức khỏe mỗi 30 giây
-      retries: 3  # Kiểm tra lại 3 lần nếu thất bại
+        value: production  # Thiết lập NODE_ENV là production
+    instances: 2  # Số lượng instance bạn cần
+    performance: true  # Sử dụng build với hiệu suất cao
+    autoDeploy: true  # Kích hoạt tự động triển khai khi có thay đổi trong repo
+    logRetentionDays: 30  # Duy trì log trong 30 ngày
+    healthCheckPath: /health  # Kiểm tra sức khỏe ứng dụng
